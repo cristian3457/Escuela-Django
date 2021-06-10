@@ -1,0 +1,80 @@
+{% extends "profesor.html" %} {% block opcion %}{% if longitud != 0 %}
+<div class="col-md-9 col-xl-10 text-center">
+    <h4 class="text-uppercase my-3 text-center">Elige una materia</h4>
+    <input type="hidden" name="id_materia" id="id_materia" value="{{id_materia}}">
+    <select onchange="cargaAlumnos(this)" name="materia" id="materia" class="form-control mb-4">
+        <option value="null">Selecciona una materia</option>
+        {% for materia in carga_profesor %}
+        <option value="{{materia.id}}">{{materia.materia}}</option>
+        {% endfor %}
+    </select>
+    <form action="" method="POST"> {% csrf_token %}
+        <table class="table">
+            <thead class="thead-dark">
+                <tr class="text-center">
+                    <th scope="col">#</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Nombre</th>
+                    {% for unidad in unidades %}
+                    <th scope="col">{{unidad.unidad}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for alumno in alumnos_materia %}
+                <tr style="font-size: .8rem;">
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{alumno.apellidos}}</td>
+                    <td>{{alumno.nombre}}</td>
+                    {% for unidad in unidades %}
+                    <td>
+                        <input type="number" name="calificacion[]" min="0" max="100">
+                        <input type="hidden" name="unidad[]" value="{{unidad.id}}">
+                        <input type="hidden" name="alumno[]" value="{{alumno.id}}">
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-success my-4">SUBIR CALIFICACIONES</button>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirma tu decisión</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Las calificaciones que ingresaste son correctas?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% else %}
+<div class="col-md-9 col-xl-10 text-center mt-4">
+    <h3>AUN NO TIENES MATERIAS ASIGNADAS</h3>
+</div>
+{% endif %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    function cargaAlumnos() {
+        d = document.getElementById("materia").value;
+        window.location = '/subirCalificaciones/' + d;
+    }
+    $(document).ready(function() {
+        id_materia = $("#id_materia").val();
+        if (id_materia) {
+            $("#materia").val(id_materia);
+        }
+    });
+</script>
+{% endblock %}

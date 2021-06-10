@@ -1,0 +1,31 @@
+{% extends "alumno.html" %} {% block opcion %} {% if longitud != 0 %}
+<div class="col-md-9 col-xl-10 text-center">
+    <h3>TUS CALIFICACIONES</h3>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr class="text-center">
+                <th scope="col">#</th>
+                <th scope="col">Materia</th>
+                {% for u in unidad %}
+                <th scope="col">U#{{u}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for calificacion in calificaciones %}
+            <tr style="font-size: .8rem;">
+                <th scope="row">{{forloop.counter}}</th>
+                {% for cal in calificacion %}
+                <td>{{cal}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% else %}
+<div class="col-md-9 col-xl-10 text-center mt-4">
+    <h3>NO TE ENCUENTRAS INSCRITO ACTUALMENTE</h3>
+</div>
+{% endif %} {% endblock %}

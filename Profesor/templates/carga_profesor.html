@@ -1,0 +1,30 @@
+{% extends "profesor.html" %} {% block opcion %} {% if longitud != 0 %}
+<div class="col-md-9 col-xl-10">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr class="text-center">
+                <th scope="col">#</th>
+                <th scope="col">Materia</th>
+                <th scope="col">Aula</th>
+                <th scope="col">Horario</th>
+                <th scope="col">Semestre</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for materia in carga_profesor %}
+            <tr style="font-size: .8rem;">
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{materia.materia}}</td>
+                <td>{{materia.aula}}</td>
+                <td>{{materia.hora_inicio}} - {{materia.hora_final}}</td>
+                <td>{{materia.semestre}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="col-md-9 col-xl-10 text-center mt-4">
+    <h3>AUN NO TIENES MATERIAS ASIGNADAS</h3>
+</div>
+{% endif %} {% endblock %}

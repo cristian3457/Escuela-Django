@@ -1,0 +1,52 @@
+{% extends "profesor.html" %} {% block opcion %}{% if longitud != 0 %}
+<div class="col-md-9 col-xl-10">
+    <h4 class="text-uppercase my-3 text-center">Filtrar alumnos por materia</h4>
+    <input type="hidden" name="id_materia" id="id_materia" value="{{id_materia}}">
+    <select onchange="cargaAlumnos(this)" name="materia" id="materia" class="form-control mb-4">
+        <option value="null">Selecciona una materia</option>
+        {% for materia in carga_profesor %}
+        <option value="{{materia.id}}">{{materia.materia}}</option>
+        {% endfor %}
+    </select>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr class="text-center">
+                <th scope="col">#</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Materia</th>
+                <th scope="col">Horario</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alumno in alumnos_materia %}
+            <tr style="font-size: .8rem;">
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{alumno.apellidos}}</td>
+                <td>{{alumno.nombre}}</td>
+                <td>{{alumno.materia}}</td>
+                <td>{{alumno.hora_inicio}} - {{alumno.hora_final}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="col-md-9 col-xl-10 text-center mt-4">
+    <h3>AUN NO TIENES MATERIAS ASIGNADAS</h3>
+</div>
+{% endif %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    function cargaAlumnos() {
+        d = document.getElementById("materia").value;
+        window.location = '/alumnosMateria/' + d;
+    }
+    $(document).ready(function() {
+        id_materia = $("#id_materia").val();
+        if (id_materia) {
+            $("#materia").val(id_materia);
+        }
+    });
+</script>
+{% endblock %}

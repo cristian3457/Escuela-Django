@@ -1,0 +1,20 @@
+{% extends "profesor.html" %} {% block opcion %}
+<div class="col-md-9 col-xl-10 text-center mt-4">
+    <h3>TU INFORMACIÓN</h3>
+    <div class="row mt-5 text-left">
+        <div class="col-md-6">
+            <p><strong>Nombre:</strong> {{usuario.nombre}} {{usuario.apellidos}}</p>
+        </div>
+        <div class="col-md-6">
+            <p><strong>Email:</strong> {{usuario.usuario.email}}</p>
+        </div>
+        <div class="col-md-6">
+            <p><strong>Usuario:</strong> {{usuario.usuario.username}}</p>
+        </div>
+        <div class="col-md-6">
+            <p><strong>Carrera:</strong> {{usuario.carrera.carrera}}</p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "alumno.html" %} {% block opcion %} {% if longitud_detalle_carga != 0 %}
+<div class="col-md-9 col-xl-10 text-center mt-4">
+    <h3>YA TE ENCUENTRAS INSCRITO, VISITA LA OPCIÓN CARGA ACADEMICA</h3>
+</div>
+{% else %} {% if longitud != 0 %}
+<div class="col-md-9 col-xl-10 text-center mt-4">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr class="text-center">
+                <th scope="col">#</th>
+                <th scope="col">Materia</th>
+                <th scope="col">Aula</th>
+                <th scope="col">Horario </th>
+                <th scope="col">Profesor@</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for materia in materias %}
+            <tr style="font-size: .8rem;">
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{materia.materia}}</td>
+                <td>{{materia.aula}}</td>
+                <td>{{materia.hora_inicio}} - {{materia.hora_final}}</td>
+                <td>{{materia.profesor}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>{% else %}
+<div class="col-md-9 col-xl-10 text-center mt-4">
+    <h3>AUN NO SE HAN REGISTRADO MATERIAS</h3>
+</div>
+{% endif %} {% endif %} {% endblock %}
